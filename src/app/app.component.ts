@@ -1,13 +1,29 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [FormsModule],
+  template: `
+  <h1>Todo App</h1>
+  <div>
+    <label>Work</label>
+    <input [(ngModel)]="work">
+    <button (click)="save()">Save</button>
+  </div>
+  <hr>
+  <div>
+    <ul>
+      <li></li>
+    </ul>
+  </div>
+`
 })
 export class AppComponent {
-  title = 'to-do-app';
+  work: string = "";
+  todos: string[] = []
+  save() {
+    this.todos.push(this.work)
+  }
 }
