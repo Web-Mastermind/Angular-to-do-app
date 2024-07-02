@@ -5,33 +5,36 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-root',
   standalone: true,
   imports: [FormsModule],
+  styleUrl: "./app.component.css",
   template: `
-  <h1>Todo App</h1>
-  @if(!isUpdateWorkFormActive){
-    <div>
-      <label>Work</label>
-      <input [(ngModel)]="work">
-      <button (click)="save()">Save</button>
+  <div class="todoMain">
+    <h1>Todo App</h1>
+    @if(!isUpdateWorkFormActive){
+     <div>
+       <label>Work</label>
+        <input [(ngModel)]="work">
+        <button (click)="save()">Save</button>
+      </div>
+   }@else {
+      <div>
+        <label>Update Work</label>
+        <input [(ngModel)]="updateWork">
+        <button (click)="update()">Update</button>
+      </div>
+    }
+    <hr>
+   <div>
+      <ul>
+        @for(data of todos; track data){
+          <li>{{data}}
+            @if(!isUpdateWorkFormActive){
+             <button (click)="get($index)">Update</button>
+             <button (click)="Delete($index)">Delete</button>
+           }
+          </li>
+       }
+     </ul>
     </div>
-  }@else {
-    <div>
-      <label>Update Work</label>
-      <input [(ngModel)]="updateWork">
-      <button (click)="update()">Update</button>
-  </div>
-  }
-  <hr>
-  <div>
-    <ul>
-      @for(data of todos; track data){
-        <li>{{data}}
-          @if(!isUpdateWorkFormActive){
-            <button (click)="get($index)">Update</button>
-            <button (click)="Delete($index)">Delete</button>
-          }
-        </li>
-      }
-    </ul>
   </div>
 `
 })
